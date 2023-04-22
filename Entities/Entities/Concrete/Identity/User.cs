@@ -19,6 +19,8 @@ namespace Entities.Entities.Concrete.Identity
 
 
         public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<Form> Forms { get; set; }
+        public ICollection<FormMessage> FormMessages { get; set; }
 
     }
 }

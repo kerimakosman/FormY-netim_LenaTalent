@@ -1,8 +1,10 @@
-﻿using Entities.Entities.Concrete.Identity;
+﻿using Entities.Entities.Concrete;
+using Entities.Entities.Concrete.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +35,17 @@ namespace Entities.Context
                 .HasOne(ur => ur.Role)
                 .WithMany(u => u.UserRoles)
                 .HasForeignKey(p => p.RoleId);
+
+            builder.Entity<FormMessage>()
+                .HasOne(fm => fm.Form)
+                .WithMany(f=>f.FormMessages)
+                .HasForeignKey(fm => fm.FormId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<FormMessage>()
+                .HasOne(fm => fm.User)
+                .WithMany(f => f.FormMessages)
+                .HasForeignKey(fm => fm.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             //builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }

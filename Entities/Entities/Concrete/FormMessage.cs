@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Entities.Entities.Concrete
 {
-    public class Form : BaseEntity
+    public class FormMessage:BaseEntity
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Message { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }
-        public ICollection<FormMessage> FormMessages { get; set; }
+
+        public int FormId { get; set; }
+        public Form Form { get; set; }
     }
 }
