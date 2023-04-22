@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Form Lena Talent";
+}
+
+<link href="~/custom/crud-icon.css" rel="stylesheet" />
+
+<h1>Form Index</h1>
+
+<div class="container py-lg-4 mt-4">
+    <a class="btn btn-primary" asp-action="" asp-controller="" asp-area="">Yeni Konu</a>
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div class="card rounded-0 border-3 shadow">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-end mt-2 mb-3">
+                        <div class="form-group pull-right col-md-3 ">
+                            <input type="text" class="search form-control" placeholder="Arama Yap..">
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered border-warning border-2 results ">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                <tr>
+                                <td>
+                                    <div class="title">Li</div>
+                                    <div class="description">LinkedIn</div>
+                                </td>
+                                    <td id="ogr-item.OgrenciId"> <br></td>
+
+                                    <td class="td-actions">
+
+                                        <button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon btn-sm detay" title="Detay" data-bs-toggle="modal" data-bs-target="#exampleModal" name="item.OgrenciId">
+                                            <i class="material-icons">person</i>
+                                        </button>
+                                        <a rel="tooltip" class="btn btn-info btn-round btn-just-icon btn-sm" title="Güncelle" asp-action="" asp-controller="" asp-area="" asp-route-id=""><i class="material-icons">edit</i></a>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-just-icon btn-sm sil" title="Sil" name="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
