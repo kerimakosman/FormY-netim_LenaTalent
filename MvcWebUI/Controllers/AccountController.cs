@@ -30,17 +30,17 @@ namespace MvcWebUI.Controllers
             ModelState.AddModelError("","Kullanıcı Bilgileri Hatalı");
             return View(user);
         }
-        //public async Task<IActionResult> Register()
-        //{
-        //    await HttpContext.SignOutAsync();
-        //    return RedirectToAction("Giris");
-        //}
-        //[HttpPost]
-        //public async Task<IActionResult> Register()
-        //{
-        //    await HttpContext.SignOutAsync();
-        //    return RedirectToAction("Giris");
-        //}
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(UserCreateVM userCreate)
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Giris");
+        }
         //public async Task<IActionResult> Logout()
         //{
         //    await HttpContext.SignOutAsync();
