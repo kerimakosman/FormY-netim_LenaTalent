@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Form Lena Talent";
 }
 
-<link href="~/custom/crud-icon.css" rel="stylesheet" />
+@*<link href="~/custom/crud-icon.css" rel="stylesheet" />*@
 
 <h1>Form Index</h1>
 
@@ -21,31 +20,34 @@
                     <table class="table table-hover table-bordered border-warning border-2 results ">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th class="col-md-7">Konu/Başlatan</th>
+                                <th lass ="col-md-2">Yanıt/Gösterim</th>
+                                <th class="col-md-3">Son İleti</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
-                                <tr>
+
+                            <tr>
                                 <td>
-                                    <div class="title">Li</div>
-                                    <div class="description">LinkedIn</div>
+                                    <div>
+                                        <p class="fw-bold"><a href="game.php?village=&amp;s=info_player&amp;id=10806" target="_blank">F 11</a></p>
+                                        <p>Açıklama</p>
+                                    </div>
                                 </td>
-                                    <td id=""> <br></td>
+                                <td>
+                                    <div class="text-center">
+                                        <p> 53 Yanıt</p>
+                                        <p> 1453 Gösterim</p>
+                                    </div>
+                                </td>
 
-                                    <td class="td-actions">
-
-                                        <button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon btn-sm detay" title="Detay" data-bs-toggle="modal" data-bs-target="#exampleModal" name="item.OgrenciId">
-                                            <i class="material-icons">person</i>
-                                        </button>
-                                        <a rel="tooltip" class="btn btn-info btn-round btn-just-icon btn-sm" title="Güncelle" asp-action="" asp-controller="" asp-area="" asp-route-id=""><i class="material-icons">edit</i></a>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-just-icon btn-sm sil" title="Sil" name="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <td>
+                                    <div>
+                                        <p>25 Şubat 2023,Cumartesi,09:43</p>
+                                        <p>Gönderen: </p>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

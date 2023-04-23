@@ -12,8 +12,8 @@ namespace Entities.Entities.Concrete
     {
         public string Message { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int? UserId { get; set; }
+        public User? User { get; set; }
 
         public int FormId { get; set; }
         public Form Form { get; set; }

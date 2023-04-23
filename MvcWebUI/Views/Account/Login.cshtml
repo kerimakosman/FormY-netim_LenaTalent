@@ -1,0 +1,32 @@
+﻿@using BusinessLayer.ViewModels.KullaniciVM;
+@{
+    ViewBag.Title = "Giriş Yap";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@model KullaniciVM
+
+<div class="login-box">
+    <div class="login-header">Giriş</div>
+    <div class="login-body">
+        <form class="form-group" method="post" asp-action="Login" asp-controller="Account">
+        <div>
+            <label asp-for="KullaniciAdi" class="fw-bold">Kullanıcı Adı :</label>
+            <input type="text" class="form-control" asp-for="KullaniciAdi" placeholder="Kullanıcı Adı">
+            <span asp-validation-for="KullaniciAdi" class="text text-danger fw-bold"></span>
+        </div>
+        <div>
+            <label asp-for="Sifre" class="fw-bold">Şifre :</label>
+            <input type="password" class="form-control" asp-for="Sifre" placeholder="Şifre">
+            <span asp-validation-for="Sifre" class="text text-danger fw-bold"></span>
+        </div>
+            <button type="submit" class="form-control btn btn-success mt-3">Giriş Yap</button>
+        </form>
+            <div asp-validation-summary="All" class="text text-danger fw-bold"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

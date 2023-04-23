@@ -1,3 +1,5 @@
+using BusinessLayer.Extensions;
+
 namespace MvcWebUI
 {
     public class Program
@@ -8,6 +10,7 @@ namespace MvcWebUI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.FormYonetimServiceManager();
 
             var app = builder.Build();
 

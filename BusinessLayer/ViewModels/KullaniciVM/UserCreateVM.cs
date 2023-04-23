@@ -1,14 +1,14 @@
-﻿using Entities.Entities.Abstract;
-using Entities.Enums;
+﻿using Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Entities.Concrete.Identity
+namespace BusinessLayer.ViewModels.KullaniciVM
 {
-    public class User : BaseEntity
+    public class UserCreateVM
     {
         public string Name { get; set; }
         public string SurName { get; set; }
@@ -16,11 +16,5 @@ namespace Entities.Entities.Concrete.Identity
         public DateTime BirthDate { get; set; }
         public Gender Gender { get; set; }
         public string Password { get; set; }
-
-
-        public ICollection<UserRole> UserRoles { get; set; }
-        public ICollection<Form> Forms { get; set; }
-        public ICollection<FormMessage> FormMessages { get; set; }
-
     }
 }
