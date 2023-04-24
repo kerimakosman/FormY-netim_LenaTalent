@@ -24,6 +24,10 @@ namespace Entities.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Role>().HasData(
+                new Role{Id=1,CreateDate = new DateTime(2023, 01, 01),RoleName="Admin"},
+                new Role { Id=2,CreateDate=new DateTime(2023,01,01),RoleName="Uye"});
+
             builder.Entity<UserRole>()
                 .HasKey(p => new { p.UserId, p.RoleId });
 

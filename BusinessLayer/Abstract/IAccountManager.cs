@@ -10,5 +10,6 @@ namespace BusinessLayer.Abstract
     public interface IAccountManager
     {
         Task<bool> KullaniciContex(KullaniciVM user);
+        Task<bool> CreateUser(UserCreateVM createUser);
     }
 }

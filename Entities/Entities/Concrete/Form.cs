@@ -10,6 +10,10 @@ namespace Entities.Entities.Concrete
 {
     public class Form : BaseEntity
     {
+        public Form()
+        {
+            FormMessages= new HashSet<FormMessage>();
+        }
         public string Name { get; set; }
         public string Description { get; set; }
 

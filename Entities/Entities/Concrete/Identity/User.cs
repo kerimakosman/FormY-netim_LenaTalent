@@ -10,6 +10,12 @@ namespace Entities.Entities.Concrete.Identity
 {
     public class User : BaseEntity
     {
+        public User()
+        {
+            UserRoles = new HashSet<UserRole>();
+            Forms=new HashSet<Form>();
+            FormMessages= new HashSet<FormMessage>();
+        }
         public string Name { get; set; }
         public string SurName { get; set; }
         public string UserName { get; set; }
