@@ -38,8 +38,7 @@ namespace BusinessLayer.Concrete
             {
                 var claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Name,kullanici.Name+" "+kullanici.SurName),
-                    new Claim(ClaimTypes.Surname,kullanici.SurName),
+                    new Claim(ClaimTypes.Name,kullanici.UserName),
                     new Claim(ClaimTypes.GivenName,"Basic"),
                     //new Claim(ClaimTypes.Role,"Uye"),
                 };

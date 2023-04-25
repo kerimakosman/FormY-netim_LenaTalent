@@ -1,13 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Form Lena Talent";
+
 }
 
 @*<link href="~/custom/crud-icon.css" rel="stylesheet" />*@
-
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <h1>Form Index</h1>
 
 <div class="container py-lg-4 mt-4">
-    <a class="btn btn-primary" asp-action="" asp-controller="" asp-area="">Yeni Konu</a>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Yeni Konu</button>
     <div class="row">
         <div class="col-lg-12 mx-auto">
             <div class="card rounded-0 border-3 shadow">
@@ -21,33 +26,11 @@
                         <thead>
                             <tr>
                                 <th class="col-md-7">Konu/Başlatan</th>
-                                <th lass ="col-md-2">Yanıt/Gösterim</th>
+                                <th lass="col-md-2">Yanıt/Gösterim</th>
                                 <th class="col-md-3">Son İleti</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            <tr>
-                                <td>
-                                    <div>
-                                        <p class="fw-bold"><a href="game.php?village=&amp;s=info_player&amp;id=10806" target="_blank">F 11</a></p>
-                                        <p>Açıklama</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p> 53 Yanıt</p>
-                                        <p> 1453 Gösterim</p>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div>
-                                        <p>25 Şubat 2023,Cumartesi,09:43</p>
-                                        <p>Gönderen: </p>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tbody id="tableBody">
                         </tbody>
                     </table>
                 </div>
@@ -56,3 +39,109 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Yeni Konu</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="submitForm" name="submitForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="formKonu" class="col-form-label">Konu:</label>
+                        <input type="text" class="form-control" id="formKonu" name="formKonu" maxlength="100">
+                        <div class="mesajKonu" style="color:#a50c1b"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="col-form-label">Açıklama:</label>
+                        <textarea class="form-control" id="message" name="message"></textarea>
+                        <div class="mesajDes" style="color:#a50c1b"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btnSubmit" name="@User.Identity.Name">Gönder</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/custom/tarihformat.js"></script>
+    <script type="text/javascript">
+        function FormVeriler() {
+            $('#tableBody').html("");
+
+            $.ajax({
+                url: "/Form/FormList",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    for (let item in data) {
+                        var konu = data[item].formName;
+                        var baslatan = data[item].userName;
+                        var createDate = (new Date(data[item].createDate)).toTurkishFormatDate("dd MM yyyy, DD-HH:ii");
+                        var aciklama = data[item].formDescription;
+                        var formId = data[item].formId;
+                        var userId = data[item].userId;
+
+                        var newRow = $("<tr>");
+                        var liste = '';
+                        liste += '<td><p><a href="/forms/'+formId+'" class="link-danger fw-bold"># ' + konu + '</a></p><p><strong>Baslatan : </strong>' + baslatan + '  /' + createDate + '</p></td>'
+                        liste += '<td><div class="text-center"><p>53 Yanıt </p><p>1453 Gösterim</p></div></td>'
+                        liste += '<td><div><p>25 Şubat 2023,Cumartesi,09:43</p><p><strong>Gönderen : </strong></p></div></td>'
+                                          
+                        newRow.append(liste);
+                        $('#tableBody').append(newRow);
+                    }
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            FormVeriler();
+
+        });
+
+        $("#submitForm").validate({
+            rules: {
+                'formKonu': { required: true, minlength: 3, maxlength: 100 },
+                'message': { required: true, minlength: 3, }
+            },
+            messages: {
+                'formKonu': { required: "Zorunlu Alan", minlength: "En az 3 karakter girmelisiniz" },
+                'message': { required: "Zorunlu Alan", minlength: "En az 3 karakter girmelisiniz" }
+            },
+            submitHandler: function () {
+                var formCreate = {
+                    UserName: $("#btnSubmit").attr('name'),
+                    FormName: $("#formKonu").val(),
+                    FormDescription: $("#message").val()
+                }
+                $.ajax({
+                    data: formCreate,
+                    url: "/Form/FormCreate",
+                    method: "POST",
+                    dataType: 'json',
+                    success: function (result) {
+                        $(".modal").modal('hide');
+                        alert("Ekleme Yapıldı");
+                        document.submitForm.reset();
+                        FormVeriler();
+                    },
+                    error: function (ex) {
+                        alert("Ekleme Başarısız")
+                    }
+                })
+            }
+        });
+
+    </script>
+}

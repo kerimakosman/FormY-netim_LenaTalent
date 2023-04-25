@@ -28,12 +28,13 @@ namespace BusinessLayer.Extensions
 
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-
-
+            services.AddScoped<IFormRepository, FormRepository>();
+            services.AddScoped<IFormMessageRepository, FormMessageRepository>();
 
 
 
             services.AddScoped<IAccountManager, AccountManager>();
+            services.AddScoped<IFormManager, FormManager>();
 
 
 
