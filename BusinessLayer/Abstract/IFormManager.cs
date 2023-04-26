@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.ViewModels.FormVM;
+using BusinessLayer.ViewModels.KullaniciVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace BusinessLayer.Abstract
         Task CreateForm(FormCreateVM form);
         Task<FormMessageListVM> GetFormMessage(int formId);
         Task NewFormMessage(FormMessagePostVM formMessagePost);
+        Task<KullaniciDetayVM> GetKullaniciDetay(string userName);
     }
 }

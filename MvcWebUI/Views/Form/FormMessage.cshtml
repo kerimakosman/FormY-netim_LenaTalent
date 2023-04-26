@@ -89,6 +89,7 @@
                     success: function (result) {
                         $("#hideForm").hide();
                         alert("Gönderme İşlemi Başarıyla Tamamlandı");
+                        location.reload();
                     },
                     error: function (ex) {
                         alert("Gönderme Başarısız")

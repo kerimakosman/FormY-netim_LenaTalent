@@ -43,6 +43,11 @@ namespace MvcWebUI.Controllers
             await _formManager.NewFormMessage(formMessagePost);
             return Json(true);
         }
+        [HttpGet]
+        public async Task<JsonResult> KullaniciDetay(string userName)
+        {
+            return Json(await _formManager.GetKullaniciDetay(userName));
+        }
 
     }
 }

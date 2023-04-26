@@ -16,6 +16,8 @@ namespace Entities.Entities.Concrete
         }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Replies { get; set; }
+        public int Views { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }

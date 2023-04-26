@@ -70,6 +70,36 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-md-2">Ad</th>
+                                <td scope="col" class="col-md-4" id="ad"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="col-md-2">Soyad</th>
+                                <td scope="col" class="col-md-4" id="soyad"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="col-md-2">Yaş</th>
+                                <td scope="col" class="col-md-4" id="yas"></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts{
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -88,14 +118,15 @@
                         var konu = data[item].formName;
                         var baslatan = data[item].userName;
                         var createDate = (new Date(data[item].createDate)).toTurkishFormatDate("dd MM yyyy, DD-HH:ii");
-                        var aciklama = data[item].formDescription;
                         var formId = data[item].formId;
-                        var userId = data[item].userId;
+                        var replies = data[item].replies;
+                        var views = data[item].views;
+                        var aciklama = data[item].formDescription;
 
                         var newRow = $("<tr>");
                         var liste = '';
-                        liste += '<td><p><a href="/forms/'+formId+'" class="link-danger fw-bold"># ' + konu + '</a></p><p><strong>Baslatan : </strong>' + baslatan + '  /' + createDate + '</p></td>'
-                        liste += '<td><div class="text-center"><p>53 Yanıt </p><p>1453 Gösterim</p></div></td>'
+                        liste += '<td><p><a href="/forms/' + formId + '" class="link-danger fw-bold"># ' + konu + '</a></p><p><strong>Baslatan : </strong><a class="link-dark detay" id="detay" data-bs-toggle="modal" data-bs-target="#exampleModal"name ='+ baslatan +'>' + baslatan + '</a>  /' + createDate + '</p></td>'
+                        liste += '<td><div class="text-center"><p><strong>'+replies+'</strong> Yanıt </p><p><strong>' + views + '</strong> Gösterim</p > </div></td > '
                         liste += '<td><div><p>25 Şubat 2023,Cumartesi,09:43</p><p><strong>Gönderen : </strong></p></div></td>'
                                           
                         newRow.append(liste);
@@ -107,6 +138,25 @@
 
         $(document).ready(function () {
             FormVeriler();
+
+            $(document).on("click", 'a[id="detay"]',function () {
+                var userName = $(this).attr('name');
+                $.ajax({
+                    data: { userName: userName },
+                    url: "/Form/KullaniciDetay",
+                    method: "GET",
+                    dataType: 'json',
+                    success: function (result) {
+                        $("#exampleModalLabel").text("Kullanıcı : " + userName);
+                        $("#ad").text(result.ad);
+                        $("#soyad").text(result.soyad);
+                        $("#yas").text(result.yas);
+                    },
+                    error: function (ex) {
+                        alert("Beklenmedik Bir Hata Oldu")
+                    }
+                })
+            })
 
         });
 
