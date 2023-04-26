@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.ViewModels.FormVM;
 using DataAccessLayer.Abstract;
+using Entities.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,44 @@ namespace BusinessLayer.Concrete
                 Description=form.FormDescription
             });
             //await _userRepository.AddAsync(user);
+            await _userRepository.SaveAsync();
+        }
+
+        public async Task<FormMessageListVM> GetFormMessage(int formId)
+        {
+             var formMesaj=await _formMessageRepository.Table
+                                .Include(fm=>fm.User)
+                                .Where(fm=>fm.FormId==formId)
+                                .Select(fm=>new MessageList()
+                                {
+                                    UserName=fm.User.UserName,
+                                    FormMessage=fm.Message,
+                                    CreateMessage=fm.CreateDate
+                                }).ToListAsync();
+
+            var form = await _formRepository.Table
+                            .Include(f => f.User)
+                            .FirstOrDefaultAsync(f => f.Id == formId);
+            return new()
+            {
+                FormId=form.Id,
+                FormName=form.Name,
+                FormDescription=form.Description,
+                FormDateTime=form.CreateDate,
+                UserId=form.UserId,
+                UserName=form.User.UserName,
+                MessageList=formMesaj.OrderBy(mesajlist=> mesajlist.CreateMessage).ToList()
+            };
+        }
+
+        public async Task NewFormMessage(FormMessagePostVM formMessagePost)
+        {
+            var user = await _userRepository.GetFirstAsync(u => u.UserName == formMessagePost.UserName);
+            user.FormMessages.Add(new()
+            {
+                Message= formMessagePost.FormMessage,
+                FormId=formMessagePost.FormId
+            });
             await _userRepository.SaveAsync();
         }
     }

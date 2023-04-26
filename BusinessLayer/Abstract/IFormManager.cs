@@ -11,5 +11,7 @@ namespace BusinessLayer.Abstract
     {
         Task<IList<FormListVM>> FormGetList();
         Task CreateForm(FormCreateVM form);
+        Task<FormMessageListVM> GetFormMessage(int formId);
+        Task NewFormMessage(FormMessagePostVM formMessagePost);
     }
 }

@@ -1,0 +1,101 @@
+﻿@using BusinessLayer.ViewModels.FormVM;
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model FormMessageListVM
+
+<h1>FormMessage</h1>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<input type="hidden" asp-for="FormId" />
+
+<form id="hideForm" name="hideForm">
+<textarea class="form-control" id="submitArea" name="submitArea" rows="10"></textarea>
+    <div class="d-grid gap-2 col-1 mt-1 mx-auto">
+        <button type="submit" class="btn btn-outline-dark" id="btnSubmit" name="@User.Identity.Name">Gönder</button>
+    </div>
+</form>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-secondary me-md-2" type="button" id="btnCevapla" name="@User.Identity.Name">Cevapla</button>
+</div>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th scope="col">@Model.UserName  /  @(((DateTime)Model.FormDateTime).ToString("f"))</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <tr>
+            <td scope="row">@Model.FormDescription</td>
+        </tr>
+    </tbody>
+</table>
+@foreach (var item in Model.MessageList)
+{
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th scope="col">@item.UserName  /  @(((DateTime)item.CreateMessage).ToString("f"))</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr>
+                <td scope="row">@item.FormMessage</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/custom/tarihformat.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#hideForm").hide();
+            $("#btnCevapla").click(function () {
+                $('#btnCevapla').hide();
+                $("#hideForm").show();
+            })
+        });
+        $("#hideForm").validate({
+            rules: {
+                'submitArea': { required: true, minlength: 3 }
+            },
+            messages: {
+                'submitArea': { required: "Zorunlu Alan", minlength: "En az 3 karakter girmelisiniz" }
+            },
+            submitHandler: function () {
+                var formMessage = {
+                    UserName: $("#btnSubmit").attr('name'),
+                    FormMessage: $("#submitArea").val(),
+                    FormId: $("#FormId").val()
+                }
+                $.ajax({
+                    data: formMessage,
+                    url: "/Form/PostFormMessage",
+                    method: "POST",
+                    dataType: 'json',
+                    success: function (result) {
+                        $("#hideForm").hide();
+                        alert("Gönderme İşlemi Başarıyla Tamamlandı");
+                    },
+                    error: function (ex) {
+                        alert("Gönderme Başarısız")
+                    }
+                })
+            }
+        });
+
+    </script>
+}

@@ -33,9 +33,16 @@ namespace MvcWebUI.Controllers
             return Json(true);
         }
         [HttpGet("forms/{id}")]
-        public IActionResult FormMessage(int id)
+        public async Task<IActionResult> FormMessage(int id)
         {
-            return View();
+            return View(await _formManager.GetFormMessage(id));
         }
+        [HttpPost]
+        public async Task<JsonResult> PostFormMessage(FormMessagePostVM formMessagePost)
+        {
+            await _formManager.NewFormMessage(formMessagePost);
+            return Json(true);
+        }
+
     }
 }
