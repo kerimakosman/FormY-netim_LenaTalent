@@ -3,7 +3,8 @@
 
 }
 
-@*<link href="~/custom/crud-icon.css" rel="stylesheet" />*@
+<link href="~/custom/css/search.css" rel="stylesheet" />
+@*<link href="~/custom/css/crud-icon.css" rel="stylesheet" />*@
 <style>
     .error {
         color: red;
@@ -104,7 +105,8 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-    <script src="~/custom/tarihformat.js"></script>
+    <script src="~/custom/js/search.js"></script>
+    <script src="~/custom/js/tarihformat.js"></script>
     <script type="text/javascript">
         function FormVeriler() {
             $('#tableBody').html("");
@@ -125,10 +127,10 @@
 
                         var newRow = $("<tr>");
                         var liste = '';
-                        liste += '<td><p><a href="/forms/' + formId + '" class="link-danger fw-bold"># ' + konu + '</a></p><p><strong>Baslatan : </strong><a class="link-dark detay" id="detay" data-bs-toggle="modal" data-bs-target="#exampleModal"name ='+ baslatan +'>' + baslatan + '</a>  /' + createDate + '</p></td>'
-                        liste += '<td><div class="text-center"><p><strong>'+replies+'</strong> Yanıt </p><p><strong>' + views + '</strong> Gösterim</p > </div></td > '
+                        liste += '<td><p><a href="/forms/' + formId + '" class="link-danger fw-bold"># ' + konu + '</a></p><p><strong>Baslatan : </strong><a class="link-dark detay" id="detay" data-bs-toggle="modal" data-bs-target="#exampleModal"name =' + baslatan + '>' + baslatan + '</a>  /' + createDate + '</p></td>'
+                        liste += '<td><div class="text-center"><p><strong>' + replies + '</strong> Yanıt </p><p><strong>' + views + '</strong> Gösterim</p > </div></td > '
                         liste += '<td><div><p>25 Şubat 2023,Cumartesi,09:43</p><p><strong>Gönderen : </strong></p></div></td>'
-                                          
+
                         newRow.append(liste);
                         $('#tableBody').append(newRow);
                     }
@@ -139,7 +141,7 @@
         $(document).ready(function () {
             FormVeriler();
 
-            $(document).on("click", 'a[id="detay"]',function () {
+            $(document).on("click", 'a[id="detay"]', function () {
                 var userName = $(this).attr('name');
                 $.ajax({
                     data: { userName: userName },

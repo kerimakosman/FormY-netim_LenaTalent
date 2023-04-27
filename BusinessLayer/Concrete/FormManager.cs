@@ -33,7 +33,7 @@ namespace BusinessLayer.Concrete
                           {
                               FormId = f.Id,
                               FormName = f.Name,
-                              FormDescription = f.Description,
+                              //FormDescription = f.Description,
                               UserName = us.UserName,
                               CreateDate = f.CreateDate,
                               Replies = f.Replies,

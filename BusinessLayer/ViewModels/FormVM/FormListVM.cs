@@ -10,7 +10,7 @@ namespace BusinessLayer.ViewModels.FormVM
     {
         public int FormId { get; set; }
         public string FormName{ get; set; }
-        public string FormDescription { get; set; }
+        //public string FormDescription { get; set; }
         public DateTime CreateDate { get; set; }
         public int Replies { get; set; }
         public int Views { get; set; }
